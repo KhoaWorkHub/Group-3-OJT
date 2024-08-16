@@ -58,6 +58,7 @@ const Header = () => {
             <Button sx={{ color: '#000', display: 'block', fontWeight: 500 }}>Questions</Button>
             <Button sx={{ color: '#000', display: 'block', fontWeight: 500 }}>Admins</Button>
             <Button sx={{ color: '#000', display: 'block', fontWeight: 500 }}>Interns</Button>
+            <Button sx={{ color: '#000', display: 'block', fontWeight: 500 }}>Login</Button>
           </>
         )}
       </Toolbar>
