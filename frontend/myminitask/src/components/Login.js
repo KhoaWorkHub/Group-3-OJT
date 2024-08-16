@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { TextField, Button, Box, Paper, Snackbar, Alert } from '@mui/material';
+import { Auth } from '../global/AuthContext';
 
-const Login = ({ onLogin }) => {
+const Login = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
-
+  const auth = useContext(Auth);
   const handleSubmit = (event) => {
     event.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -17,7 +18,7 @@ const Login = ({ onLogin }) => {
     setError('');
     const role = email === 'amazingtechAdmin@gmail.com' ? 'admin' : 'student';
     const user = { name, email, role };
-    onLogin(user);
+    auth.loginUser(user);
   };
 
   return (

@@ -4,7 +4,9 @@ export default function AuthContext({children}) {
     const [userAuth, setUserAuth] = useState(JSON.parse(localStorage.getItem("user"))?? "");
     const loginUser = (user) => {
         setUserAuth(user);
+        window.location.reload();
         localStorage.setItem("user", JSON.stringify(user));
+        
     }
     const logoutUser = () => {
         setUserAuth({});
