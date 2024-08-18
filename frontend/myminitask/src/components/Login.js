@@ -21,7 +21,7 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 3 }}>
+    <Paper elevation={3} sx={{ p: 3, width:"220px",position: "fixed"}}>
       <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <TextField
           label="Name"

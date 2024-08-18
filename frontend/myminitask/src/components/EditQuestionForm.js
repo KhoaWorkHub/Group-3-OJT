@@ -24,10 +24,10 @@ const EditQuestionForm = ({ question, onUpdateQuestion }) => {
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 3 }}>
+    <Paper elevation={3} sx={{ p: 2 }}>
       <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <TextField
-          label="Title"
+          label="Your Question"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required

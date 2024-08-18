@@ -48,10 +48,10 @@ function App() {
     : filteredQuestions;
 
   return (
-    <div>
+    <>
       <Header />
       <div className="container">
-        <div className="sidebarContainer">
+        <div>
           {user ? (
             <Sidebar onNewQuestion={handleNewQuestion} user={user} />
           ) : (
@@ -72,7 +72,7 @@ function App() {
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

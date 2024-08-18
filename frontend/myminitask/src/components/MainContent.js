@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Snackbar, Alert, Drawer, List, ListItem, ListItemText, Divider } from '@mui/material';
+import { Snackbar, Alert, Drawer, List, ListItem, ListItemText, Divider, useMediaQuery, useTheme } from '@mui/material';
 import QuestionCard from './QuestionCard';
 import EditQuestionForm from './EditQuestionForm';
 import axios from 'axios';
@@ -8,6 +8,8 @@ const MainContent = ({ questions, onUpdateQuestion, onAdminResponse, user }) => 
   const [editingQuestion, setEditingQuestion] = useState(null);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
   const [filter, setFilter] = useState('all');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleEdit = (question) => {
     setEditingQuestion(question);
@@ -95,8 +97,8 @@ const MainContent = ({ questions, onUpdateQuestion, onAdminResponse, user }) => 
           </ListItem>
         </List>
       </Drawer>
-      <div style={{ flexGrow: 1, padding: '20px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
+      <div style={{ flexGrow: 1, padding: '10px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'repeat(1, 1fr)' : 'repeat(4, 1fr)', gap: '20px' }}>
           {filteredQuestions.map((q, index) => (
             <QuestionCard 
               key={index} 

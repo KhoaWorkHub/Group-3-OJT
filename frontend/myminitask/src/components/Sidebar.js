@@ -1,15 +1,33 @@
-import React, { useState } from 'react';
-import { useMediaQuery, IconButton, Drawer, List, ListItem, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import NewQuestionForm from './NewQuestionForm';
+import React, { useState } from "react";
+import {
+  useMediaQuery,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Container,
+  Link,
+  Box,
+} from "@mui/material";
+import NewQuestionForm from "./NewQuestionForm";
+import AddIcon from "@mui/icons-material/Add";
+import HomeIcon from "@mui/icons-material/Home";
 
 const Sidebar = ({ onNewQuestion, user }) => {
-  const isMobile = useMediaQuery('(max-width:600px)');
+  const isMobile = useMediaQuery("(max-width:600px)");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
     setDrawerOpen(open);
@@ -28,46 +46,150 @@ const Sidebar = ({ onNewQuestion, user }) => {
     handleDialogClose();
   };
 
-  const sidebarContent = (
-    <List component="nav" className="sidebar">
-      <ListItem>
-        <Button variant="contained" fullWidth>Manage Questions</Button>
-      </ListItem>
-      <ListItem>
-        <Button variant="contained" fullWidth>Manage Interns</Button>
-      </ListItem>
-      {user.role === 'student' && (
-        <ListItem>
-          <Button variant="contained" fullWidth onClick={handleDialogOpen}>Submit Question</Button>
-        </ListItem>
-      )}
-    </List>
-  );
+  const commonSx = {
+    borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
+    borderRadius: "10px",
+    color: "black",
+    fontWeight: "bold",
+    "&:hover": {
+      backgroundColor: "rgba(0, 0, 0, 0.2)",
+      color: "white",
+    },
+  };
+  // const sidebarContent = (
+  //   <Container style={{ padding: 0 }}>
+  //     {user.role === "student" && (
+  //       <>
+  //         <ListItem>
+  //           <Button variant="contained" fullWidth>
+  //             Home
+  //           </Button>
+  //         </ListItem>
+  //         <ListItem>
+  //           <Button variant="contained" fullWidth onClick={handleDialogOpen}>
+  //             <AddIcon fontSize="small" /> Create Question
+  //           </Button>
+  //         </ListItem>
+  //       </>
+  //     )}
+  //     {user.role === "admin" && (
+  //       <>
+  //         <ListItem>
+  //           <Button variant="contained" fullWidth>
+  //             Manage Questions
+  //           </Button>
+  //         </ListItem>
+  //         <ListItem>
+  //           <Button variant="contained" fullWidth>
+  //             Manage Interns
+  //           </Button>
+  //         </ListItem>
+  //       </>
+  //     )}
+  //   </Container>
+  // <List component="nav" className="sidebar">
+  //   <ListItem>
+  //     <Button variant="contained" fullWidth>Manage Questions</Button>
+  //   </ListItem>
+  //   <ListItem>
+  //     <Button variant="contained" fullWidth>Manage Interns</Button>
+  //   </ListItem>
+  //   {user.role === 'student' && (
+  //     <ListItem>
+  //       <Button variant="contained" fullWidth onClick={handleDialogOpen}>Submit Question</Button>
+  //     </ListItem>
+  //   )}
+  // </List>
+  // );
 
   return (
     <>
       {isMobile ? (
         <>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={toggleDrawer(true)}
-            className="menuButton"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
-            {sidebarContent}
-          </Drawer>
+          <Container style={{ padding: 0 }}>
+            {user.role === "student" && (
+              <>
+                <ListItem>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    onClick={handleDialogOpen}
+                    style={{ width: "200px", top: "80px" }}
+                  >
+                    <AddIcon fontSize="small" /> Create Question
+                  </Button>
+                </ListItem>
+              </>
+            )}
+            {user.role === "admin" && (
+              <>
+                <ListItem>
+                  <Button variant="contained" fullWidth>
+                    Manage Questions
+                  </Button>
+                </ListItem>
+                <ListItem>
+                  <Button variant="contained" fullWidth>
+                    Manage Interns
+                  </Button>
+                </ListItem>
+              </>
+            )}
+          </Container>
         </>
       ) : (
-        sidebarContent
+        <Container
+          style={{
+            padding: 0,
+            backgroundColor: "#aca9",
+            marginTop: "65px",
+            marginBottom: "65px",
+            height: "100vh",
+            width: "200px",
+            position: "fixed",
+          }}
+        >
+          {user.role === "student" && (
+            <>
+              <ListItem fullWidth sx={commonSx}>
+                <HomeIcon
+                  fontSize="small"
+                  sx={{ padding: "1px", marginRight: "8px" }}
+                />{" "}
+                HOME
+              </ListItem>
+              <ListItem fullWidth onClick={handleDialogOpen} sx={commonSx}>
+                <AddIcon
+                  fontSize="small"
+                  sx={{ padding: "1px", marginRight: "8px" }}
+                />{" "}
+                CREATE QUESTION
+              </ListItem>
+            </>
+          )}
+          {user.role === "admin" && (
+            <>
+              <ListItem>
+                <Button variant="contained" fullWidth>
+                  Manage Questions
+                </Button>
+              </ListItem>
+              <ListItem>
+                <Button variant="contained" fullWidth>
+                  Manage Interns
+                </Button>
+              </ListItem>
+            </>
+          )}
+        </Container>
       )}
       <Dialog open={dialogOpen} onClose={handleDialogClose}>
-        <DialogTitle>Submit a New Question</DialogTitle>
+        <DialogTitle>Do you have any questions ?</DialogTitle>
         <DialogContent>
-          <NewQuestionForm onQuestionSubmit={handleQuestionSubmit} user={user} />      
+          <NewQuestionForm
+            onQuestionSubmit={handleQuestionSubmit}
+            user={user}
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose} color="primary">

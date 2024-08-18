@@ -32,7 +32,7 @@ const Header = () => {
   );
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow: 'none', borderBottom: '1px solid #e0e0e0' }}>
+    <AppBar position="static" sx={{ backgroundColor: '#fff', borderBottom: '1px solid #e0e0e0', position: 'fixed', zIndex: 999   }}>
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1, color: '#000', fontWeight: 'bold' }}>
           Amazing Tech
@@ -40,11 +40,11 @@ const Header = () => {
         {isMobile ? (
           <>
             <IconButton
-              edge="start"
+              edge="end"
               color="inherit"
               aria-label="menu"
               onClick={toggleDrawer(true)}
-              sx={{ color: '#000' }} // Đảm bảo rằng màu sắc của biểu tượng là màu đen
+              sx={{ color: '#000',cursor: 'pointer', }} // Đảm bảo rằng màu sắc của biểu tượng là màu đen
             >
               <MenuIcon />
             </IconButton>
