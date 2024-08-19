@@ -27,7 +27,7 @@ const NewQuestionForm = ({ onQuestionSubmit, user }) => {
     <Paper elevation={3} sx={{ p: 3 }}>
       <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <TextField
-          label="Title"
+          label="Write Your Question"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required

@@ -51,7 +51,7 @@ export default function Home() {
             : filteredQuestions;
     return (
         <div className="container">
-            <div className="sidebarContainer">
+            <div>
                 {auth?.userAuth ? (
                     <Sidebar onNewQuestion={handleNewQuestion} user={auth?.userAuth} />
                 ) : (

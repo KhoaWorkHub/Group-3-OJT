@@ -8,13 +8,6 @@
 body {
   font-family: 'Roboto', sans-serif;
 }
-
-/* .container {
-  display: flex;
-  flex-direction: row;
-  padding: 20px;
-} */
-
 .menu {
   width: 250px;
   background-color: #f7f7f7;
@@ -26,7 +19,7 @@ body {
   padding: 20px;
 }
 
-.questions {
+/* .questions {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
@@ -37,7 +30,7 @@ body {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+} */
 
 button {
   padding: 10px;
@@ -97,14 +90,25 @@ footer {
   display: flex;
 }
 
-.sidebarContainer {
+/* .sidebarContainer {
   width: 250px;
   flex-shrink: 0;
-}
+} */
 
 .mainContent {
   flex-grow: 1;
   padding: 20px;
   display: flex;
   flex-wrap: wrap;
+  margin-left: 200px;
+  margin-top: 65px;
+  min-height: 100vh;
+}
+@media (max-width: 600px) {
+  .mainContent {
+    margin-left: 0; 
+  }
+  footer{
+    position: static;
+  }
 }
