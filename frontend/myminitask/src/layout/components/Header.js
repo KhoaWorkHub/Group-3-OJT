@@ -91,7 +91,7 @@ const Header = () => {
                     variant="h6"
                     sx={{ flexGrow: 1, color: "#000", fontWeight: "bold" }}
                 >
-                    Amazing Tech
+                    <img style={{width:"100px"}} src={"/assets/amazingTech.jpg"}/>
                 </Typography>
                 {isMobile ? (
                     <>
