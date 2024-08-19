@@ -100,7 +100,7 @@ const Header = () => {
                             color="inherit"
                             aria-label="menu"
                             onClick={toggleDrawer(true)}
-                            sx={{ color: "#000" }} // Đảm bảo rằng màu sắc của biểu tượng là màu đen
+                            sx={{ color: "#000", width:"5%" }} // Đảm bảo rằng màu sắc của biểu tượng là màu đen
                         >
                             <MenuIcon />
                         </IconButton>

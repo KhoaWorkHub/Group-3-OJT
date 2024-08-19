@@ -71,6 +71,7 @@ const QuestionCard = ({
           sx={{
             position: "absolute",
             right: 10,
+            justifypContent:"flex-end"
           }}
         >
           <MoreHorizIcon />
