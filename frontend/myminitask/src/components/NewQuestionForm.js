@@ -27,10 +27,14 @@ const NewQuestionForm = ({ onQuestionSubmit, user }) => {
     <Paper elevation={3} sx={{ p: 3 }}>
       <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <TextField
-          label="Write Your Question"
+          label="Question"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
+          fullWidth
+          multiline
+          rows={4}
+          sx={{ width: '300px' }}
         />
         <Button type="submit" variant="contained">Submit</Button>
       </Box>

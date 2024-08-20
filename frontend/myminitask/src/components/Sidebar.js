@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import {
   useMediaQuery,
-  IconButton,
-  Drawer,
-  List,
   ListItem,
   Button,
   Dialog,
@@ -107,16 +104,16 @@ const Sidebar = ({ onNewQuestion, user }) => {
         >
           {user.role === "student" && (
             <>
-            <Link to={routes.home} style={{ textDecoration: 'none' }}>
-              <ListItem fullWidth sx={commonSx}>
-                <HomeIcon
-                  fontSize="small"
-                  sx={{ padding: "1px", marginRight: "8px" }}
+              <Link to={routes.home} style={{ textDecoration: 'none' }}>
+                <ListItem fullWidth sx={commonSx}>
+                  <HomeIcon
+                    fontSize="small"
+                    sx={{ padding: "1px", marginRight: "8px" }}
                   />{" "}
-                HOME
-              </ListItem>
+                  HOME
+                </ListItem>
 
-                  </Link>
+              </Link>
               <ListItem fullWidth onClick={handleDialogOpen} sx={commonSx}>
                 <AddIcon
                   fontSize="small"

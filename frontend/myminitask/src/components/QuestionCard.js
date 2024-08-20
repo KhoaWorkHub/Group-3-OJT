@@ -71,7 +71,7 @@ const QuestionCard = ({
           sx={{
             position: "absolute",
             right: 10,
-            justifypContent:"flex-end"
+            justifypContent: "flex-end"
           }}
         >
           <MoreHorizIcon />
@@ -81,7 +81,7 @@ const QuestionCard = ({
         <Typography variant="h6" fontWeight="bold">
           {question.title} ?
         </Typography>
-        {isExpanded &&user?.role != "admin"&&(
+        {isExpanded && user?.role != "admin" && (
           <>
             {question.adminResponse ? (
               <>
@@ -105,25 +105,31 @@ const QuestionCard = ({
         )}
         {user?.role === "admin" && (
           <>
-          {question.adminResponse ? (
-              <>
-                <Typography
-                  variant="h6"
-                  sx={{ fontWeight: "bold", fontSize: "20px", color: "green" }}
-                >
-                  The answer: {question.adminResponse}
-                </Typography>
-              </>
-            ) : (
-              <Typography
-                variant="h6"
-                color={"red"}
-                sx={{ fontWeight: "bold" }}
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", fontSize: "20px", color: "green" }}
+            >
+              The answer: {question.adminResponse}
+              <TextField
+                label="Admin Response"
+                value={response}
+                onChange={(e) => setResponse(e.target.value)}
+                fullWidth
+                multiline
+                rows={2}
+                variant="outlined"
+                style={{ marginTop: "10px" }}
+              />
+              <Button
+                onClick={handleResponseSubmit}
+                variant="contained"
+                color="primary"
+                style={{ marginTop: "10px" }}
               >
-                Submit answer to question !
-              </Typography>
-            )}
-        </>
+                Submit Response
+              </Button>
+            </Typography>
+          </>
         )}
         {user?.role === "student" && (
           <>
@@ -153,28 +159,6 @@ const QuestionCard = ({
               startIcon={<DeleteIcon />}
             >
               Delete
-            </Button>
-          </>
-        )}
-        {user?.role === "admin" && !question.adminResponse &&(
-          <>
-            <TextField
-              label="Admin Response"
-              value={response}
-              onChange={(e) => setResponse(e.target.value)}
-              fullWidth
-              multiline
-              rows={2}
-              variant="outlined"
-              style={{ marginTop: "10px" }}
-            />
-            <Button
-              onClick={handleResponseSubmit}
-              variant="contained"
-              color="primary"
-              style={{ marginTop: "10px" }}
-            >
-              Submit Response
             </Button>
           </>
         )}
