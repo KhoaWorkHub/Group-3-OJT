@@ -11,5 +11,4 @@ export const post = async (url, data = {}, options = {}) => {
     const res = await httpRequest.post(url, data, options);
     return res.data;
 }
-
 export default httpRequest

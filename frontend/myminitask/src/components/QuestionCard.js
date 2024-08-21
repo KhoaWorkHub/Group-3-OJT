@@ -88,10 +88,21 @@ const QuestionCard = ({
         </IconButton>
       </Tooltip>
       <CardContent>
-        <Typography variant="h6" fontWeight="bold">
-          {question.title} ?
-        </Typography>
-        {isExpanded && user?.role != "admin" && (
+      {isEditing ? (
+          <TextField
+            fullWidth
+            variant="outlined"
+            value={editedTitle}
+            onChange={(e) => setEditedTitle(e.target.value)}
+            onClick={(e) => e.stopPropagation()}
+            onBlur={handleEdit} // Automatically save when the user clicks away
+          />
+        ) : (
+          <Typography variant="h6" fontWeight="bold">
+            {question.title} ?
+          </Typography>
+        )}
+        {isExpanded && user?.role !== "admin" && (
           <>
             {question.adminResponse ? (
               <>

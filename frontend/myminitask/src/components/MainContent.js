@@ -141,7 +141,7 @@ const MainContent = ({
                     Question & Answer
                 </Typography>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px', padding:"20px" }}>
                 <Typography variant="body1" style={{ marginRight: '10px' }}>Filter:</Typography>
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
                     <InputLabel id="filter-label"></InputLabel>
@@ -183,13 +183,13 @@ const MainContent = ({
                         />
                     ))}
                 </div>
-                {editingQuestion && (
+                {/* {editingQuestion && (
                     <EditQuestionForm
                         question={editingQuestion}
                         onUpdateQuestion={handleUpdateQuestion}
                         onClose={() => setEditingQuestion(null)}
                     />
-                )}
+                )} */}
             </div>
             <Snackbar
                 open={snackbar.open}
