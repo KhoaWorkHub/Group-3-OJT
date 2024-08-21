@@ -170,7 +170,7 @@ const MainContent = ({
                                     ? q.author
                                     : q.author.split("@")[0],
                             }}
-                            onEdit={() => handleEdit(q)}
+                            onEdit={handleUpdateQuestion}
                             onDelete={() => handleDelete(q.id)}
                             onAdminResponse={handleAdminResponse}
                             user={user}

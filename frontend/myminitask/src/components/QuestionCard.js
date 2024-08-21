@@ -8,6 +8,11 @@ import {
   IconButton,
   Tooltip,
   Popover,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -23,29 +28,34 @@ const QuestionCard = ({
   const [response, setResponse] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedTitle, setEditedTitle] = useState(question.title);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const handleResponseSubmit = () => {
     onAdminResponse(question.id, response);
     setResponse("");
   };
 
-  const formatDate = (isoString) => {
-    const date = new Date(isoString);
-    return date.toLocaleDateString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
+  const handleEdit = () => {
+    if (isEditing) {
+      onEdit({ ...question, title: editedTitle });
+    }
+    setIsEditing(!isEditing);
   };
+
   const handleCardClick = () => {
     setIsExpanded(!isExpanded);
   };
+
   const handleIconClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   return (
@@ -55,7 +65,7 @@ const QuestionCard = ({
         opacity: question.disabled ? 0.5 : 1,
         boxShadow: "0 4px 6px rgba(0, 0, 0, 0.3)",
         borderRadius: 5,
-        cursor: 'pointer',
+        cursor: "pointer",
         position: "relative",
         transition: "0.3s",
         "&:hover": {
@@ -71,17 +81,28 @@ const QuestionCard = ({
           sx={{
             position: "absolute",
             right: 10,
-            justifypContent:"flex-end"
+            justifyContent: "flex-end",
           }}
         >
           <MoreHorizIcon />
         </IconButton>
       </Tooltip>
       <CardContent>
-        <Typography variant="h6" fontWeight="bold">
-          {question.title} ?
-        </Typography>
-        {isExpanded &&user?.role != "admin"&&(
+        {isEditing ? (
+          <TextField
+            value={editedTitle}
+            onChange={(e) => setEditedTitle(e.target.value)}
+            fullWidth
+            variant="outlined"
+            size="small"
+            autoFocus
+          />
+        ) : (
+          <Typography variant="h6" fontWeight="bold">
+            {question.title} ?
+          </Typography>
+        )}
+        {isExpanded && user?.role !== "admin" && (
           <>
             {question.adminResponse ? (
               <>
@@ -103,52 +124,36 @@ const QuestionCard = ({
             )}
           </>
         )}
-        {user?.role === "admin" && (
-          <>
-          {question.adminResponse ? (
-              <>
-                <Typography
-                  variant="h6"
-                  sx={{ fontWeight: "bold", fontSize: "20px", color: "green" }}
-                >
-                  The answer: {question.adminResponse}
-                </Typography>
-              </>
-            ) : (
-              <Typography
-                variant="h6"
-                color={"red"}
-                sx={{ fontWeight: "bold" }}
-              >
-                Submit answer to question !
-              </Typography>
-            )}
-        </>
-        )}
         {user?.role === "student" && (
           <>
-            <Button
-              onClick={onEdit}
+          <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsEditing(true);
+              }}
               variant="contained"
               size="small"
               style={{
-                margin: "20px 20px 0 5px",
-                width: "90px",
-                backgroundColor: "#00754b",
+                marginTop: "20px",
+                backgroundColor: "#673ab7",
+                color: "white",
+                marginRight:"10px"
               }}
               startIcon={<EditNoteIcon />}
             >
               Edit
             </Button>
             <Button
-              onClick={onDelete}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDeleteConfirm(true);
+              }}
               variant="contained"
               size="small"
-              borderRadius="10px"
               style={{
                 marginTop: "20px",
-                width: "90px",
-                backgroundColor: "#413f3f",
+                backgroundColor: "#f44336",
+                color: "white",
               }}
               startIcon={<DeleteIcon />}
             >
@@ -156,29 +161,54 @@ const QuestionCard = ({
             </Button>
           </>
         )}
-        {user?.role === "admin" && !question.adminResponse &&(
+
+        {user?.role === "admin" && (
           <>
+            <Button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsEditing(true);
+              }}
+              variant="contained"
+              size="small"
+              style={{
+                marginTop: "20px",
+                backgroundColor: "#673ab7",
+                color: "white",
+              }}
+              startIcon={<EditNoteIcon />}
+            >
+              Edit
+            </Button>
             <TextField
-              label="Admin Response"
+              label="Your answer"
               value={response}
               onChange={(e) => setResponse(e.target.value)}
               fullWidth
-              multiline
-              rows={2}
               variant="outlined"
-              style={{ marginTop: "10px" }}
+              sx={{ mt: 2 }}
+              disabled={Boolean(question.adminResponse)}
             />
             <Button
-              onClick={handleResponseSubmit}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleResponseSubmit();
+              }}
               variant="contained"
               color="primary"
-              style={{ marginTop: "10px" }}
+              style={{
+                marginTop: "20px",
+                backgroundColor: "#6200ea",
+                color: "white",
+              }}
             >
-              Submit Response
+              Answer
             </Button>
           </>
         )}
       </CardContent>
+
+      {/* Popover with the Edit and Delete buttons */}
       <Popover
         id={id}
         open={open}
@@ -186,29 +216,65 @@ const QuestionCard = ({
         onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "right",
+          horizontal: "center",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "right",
+          horizontal: "center",
         }}
-        onClick={(e) => e.stopPropagation()}
       >
-        <Card sx={{ width: "250px" }}>
-          <CardContent>
-            <Typography variant="h6" fontWeight="bold">
-              Details
-            </Typography>
-            <Typography variant="body2">Asked by: {question.author}</Typography>
-            <Typography variant="body2">
-              Date: {formatDate(question.date)}
-            </Typography>
-            <Typography variant="body2">
-              Answer Date: {formatDate(question.answerAtDate)}
-            </Typography>
-          </CardContent>
-        </Card>
+        <Button
+          variant="text"
+          color="primary"
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsEditing(!isEditing);
+            handleClose();
+          }}
+          startIcon={<EditNoteIcon />}
+        >
+          Edit
+        </Button>
+        <Button
+          variant="text"
+          color="error"
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowDeleteConfirm(true);
+            handleClose();
+          }}
+          startIcon={<DeleteIcon />}
+        >
+          Delete
+        </Button>
       </Popover>
+
+      {/* Confirmation dialog for deleting */}
+      <Dialog
+        open={showDeleteConfirm}
+        onClose={() => setShowDeleteConfirm(false)}
+      >
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this question?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowDeleteConfirm(false)} color="primary">
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              onDelete(question.id);
+              setShowDeleteConfirm(false);
+            }}
+            color="error"
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Card>
   );
 };
