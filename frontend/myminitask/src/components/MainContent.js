@@ -3,11 +3,12 @@ import {
     Snackbar,
     Alert,
     Drawer,
-    List,
-    ListItem,
-    ListItemText,
-    Divider,
+    Typography,
+    Select,
+    MenuItem,
+    FormControl,
     useMediaQuery,
+    InputLabel,
     useTheme,
 } from "@mui/material";
 import QuestionCard from "./QuestionCard";
@@ -134,23 +135,28 @@ const MainContent = ({
                         boxSizing: "border-box",
                     },
                 }}
-            >
-                <List>
-                    <ListItem>
-                        <ListItemText primary="Filter Questions" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem button onClick={() => setFilter("all")}>
-                        <ListItemText primary="All" />
-                    </ListItem>
-                    <ListItem button onClick={() => setFilter("responded")}>
-                        <ListItemText primary="Responded" />
-                    </ListItem>
-                    <ListItem button onClick={() => setFilter("unresponded")}>
-                        <ListItemText primary="Unresponded" />
-                    </ListItem>
-                </List>
-            </Drawer>
+            ></Drawer>
+            <div style={{ textAlign: 'center' }}>
+                <Typography variant="h2" gutterBottom style={{ padding: '20px', fontWeight: 'bold', }}>
+                    Question & Answer
+                </Typography>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
+                <Typography variant="body1" style={{ marginRight: '10px' }}>Filter:</Typography>
+                <FormControl sx={{ m: 1, minWidth: 120 }}>
+                    <InputLabel id="filter-label"></InputLabel>
+                    <Select
+                        labelId="filter-label"
+                        id="filter-select"
+                        value={filter}
+                        onChange={(e) => setFilter(e.target.value)}
+                    >
+                        <MenuItem value="all">All</MenuItem>
+                        <MenuItem value="responded">Responded</MenuItem>
+                        <MenuItem value="unresponded">Unresponded</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
             <div style={{ flexGrow: 1, padding: "20px" }}>
                 <div
                     style={{

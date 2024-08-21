@@ -81,28 +81,17 @@ const QuestionCard = ({
           sx={{
             position: "absolute",
             right: 10,
-            justifyContent: "flex-end",
+            justifypContent: "flex-end"
           }}
         >
           <MoreHorizIcon />
         </IconButton>
       </Tooltip>
       <CardContent>
-        {isEditing ? (
-          <TextField
-            value={editedTitle}
-            onChange={(e) => setEditedTitle(e.target.value)}
-            fullWidth
-            variant="outlined"
-            size="small"
-            autoFocus
-          />
-        ) : (
-          <Typography variant="h6" fontWeight="bold">
-            {question.title} ?
-          </Typography>
-        )}
-        {isExpanded && user?.role !== "admin" && (
+        <Typography variant="h6" fontWeight="bold">
+          {question.title} ?
+        </Typography>
+        {isExpanded && user?.role != "admin" && (
           <>
             {question.adminResponse ? (
               <>
@@ -122,6 +111,34 @@ const QuestionCard = ({
                 OMG!! The question is not answered
               </Typography>
             )}
+          </>
+        )}
+        {user?.role === "admin" && (
+          <>
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", fontSize: "20px", color: "green" }}
+            >
+              The answer: {question.adminResponse}
+              <TextField
+                label="Admin Response"
+                value={response}
+                onChange={(e) => setResponse(e.target.value)}
+                fullWidth
+                multiline
+                rows={2}
+                variant="outlined"
+                style={{ marginTop: "10px" }}
+              />
+              <Button
+                onClick={handleResponseSubmit}
+                variant="contained"
+                color="primary"
+                style={{ marginTop: "10px" }}
+              >
+                Submit Response
+              </Button>
+            </Typography>
           </>
         )}
         {user?.role === "student" && (
@@ -158,51 +175,6 @@ const QuestionCard = ({
               startIcon={<DeleteIcon />}
             >
               Delete
-            </Button>
-          </>
-        )}
-
-        {user?.role === "admin" && (
-          <>
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsEditing(true);
-              }}
-              variant="contained"
-              size="small"
-              style={{
-                marginTop: "20px",
-                backgroundColor: "#673ab7",
-                color: "white",
-              }}
-              startIcon={<EditNoteIcon />}
-            >
-              Edit
-            </Button>
-            <TextField
-              label="Your answer"
-              value={response}
-              onChange={(e) => setResponse(e.target.value)}
-              fullWidth
-              variant="outlined"
-              sx={{ mt: 2 }}
-              disabled={Boolean(question.adminResponse)}
-            />
-            <Button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleResponseSubmit();
-              }}
-              variant="contained"
-              color="primary"
-              style={{
-                marginTop: "20px",
-                backgroundColor: "#6200ea",
-                color: "white",
-              }}
-            >
-              Answer
             </Button>
           </>
         )}
