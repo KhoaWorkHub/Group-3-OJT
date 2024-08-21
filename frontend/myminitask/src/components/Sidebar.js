@@ -68,7 +68,13 @@ const Sidebar = ({ onNewQuestion, user }) => {
                     variant="contained"
                     fullWidth
                     onClick={handleDialogOpen}
-                    style={{ width: "200px", top: "80px" }}
+                    sx={{
+                      width:"200px",
+                      position:"fixed",
+                      bottom:"80px",
+                      left:"50px",
+                      zIndex:999
+                    }}
                   >
                     <AddIcon fontSize="small" /> Create Question
                   </Button>
@@ -80,11 +86,6 @@ const Sidebar = ({ onNewQuestion, user }) => {
                 <ListItem>
                   <Button variant="contained" fullWidth>
                     Manage Questions
-                  </Button>
-                </ListItem>
-                <ListItem>
-                  <Button variant="contained" fullWidth>
-                    Manage Interns
                   </Button>
                 </ListItem>
               </>
@@ -131,13 +132,6 @@ const Sidebar = ({ onNewQuestion, user }) => {
                   sx={{ padding: "1px", marginRight: "8px" }}
                 />{" "}
                 QUESTIONS
-              </ListItem>
-              <ListItem fullWidth onClick={handleDialogOpen} sx={commonSx}>
-                <AddIcon
-                  fontSize="small"
-                  sx={{ padding: "1px", marginRight: "8px" }}
-                />{" "}
-                MANAGE INTERNS
               </ListItem>
             </>
           )}

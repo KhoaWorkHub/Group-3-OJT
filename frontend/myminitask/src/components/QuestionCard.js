@@ -36,7 +36,11 @@ const QuestionCard = ({
     onAdminResponse(question.id, response);
     setResponse("");
   };
-
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString();
+    
+  };
   const handleEdit = () => {
     if (isEditing) {
       onEdit({ ...question, title: editedTitle });
@@ -79,6 +83,7 @@ const QuestionCard = ({
         <IconButton
           onClick={handleIconClick}
           sx={{
+            width:"5%",
             position: "absolute",
             right: 10,
             justifypContent: "flex-end"
@@ -199,37 +204,28 @@ const QuestionCard = ({
         onClose={handleClose}
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "center",
+          horizontal: "right",
         }}
         transformOrigin={{
           vertical: "top",
-          horizontal: "center",
+          horizontal: "right",
         }}
+        onClick={(e) => e.stopPropagation()}
       >
-        <Button
-          variant="text"
-          color="primary"
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsEditing(!isEditing);
-            handleClose();
-          }}
-          startIcon={<EditNoteIcon />}
-        >
-          Edit
-        </Button>
-        <Button
-          variant="text"
-          color="error"
-          onClick={(e) => {
-            e.stopPropagation();
-            setShowDeleteConfirm(true);
-            handleClose();
-          }}
-          startIcon={<DeleteIcon />}
-        >
-          Delete
-        </Button>
+        <Card sx={{ width: "250px" }}>
+          <CardContent>
+            <Typography variant="h6" fontWeight="bold">
+              Details
+            </Typography>
+            <Typography variant="body2">Asked by: {question.author}</Typography>
+            <Typography variant="body2">
+              Date: {formatDate(question.date)}
+            </Typography>
+            <Typography variant="body2">
+              Answer Date: {formatDate(question.answerAtDate)}
+            </Typography>
+          </CardContent>
+        </Card>
       </Popover>
 
       {/* Confirmation dialog for deleting */}
@@ -251,6 +247,7 @@ const QuestionCard = ({
             onClick={() => {
               onDelete(question.id);
               setShowDeleteConfirm(false);
+              window.location.reload();
             }}
             color="error"
           >

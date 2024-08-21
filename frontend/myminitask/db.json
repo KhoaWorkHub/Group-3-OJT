@@ -14,9 +14,9 @@
       "title": "test2aaa",
       "author": "gsgsg",
       "date": "2024-08-15",
-      "adminResponse": "dd",
+      "adminResponse": "aaa",
       "answerBy": "amazingtechAdmin@gmail.com",
-      "answerAtDate": "2024-08-16T00:16:15.896Z"
+      "answerAtDate": "2024-08-21T14:21:41.231Z"
     },
     {
       "id": "d047",
@@ -139,38 +139,26 @@
       "answerAtDate": "2024-08-18T15:21:08.815Z"
     },
     {
-      "id": "26e5",
-      "title": "tuanfff",
-      "author": "tuan@gmail.com",
-      "date": "2024-08-19",
-      "adminResponse": "asdjasgdkj asdjgasgdjag jdasd",
-      "answerBy": "amazingtechAdmin@gmail.com",
-      "answerAtDate": "2024-08-20T05:32:36.975Z",
-      "responseDate": "2024-08-20T05:32:33.748Z"
-    },
-    {
-      "id": "cdd1",
-      "title": "tuan",
-      "author": "tuan@gmail.com",
-      "date": "2024-08-19",
-      "adminResponse": "tuan",
-      "responseDate": "2024-08-21T02:21:03.747Z",
-      "answerBy": "amazingtechAdmin@gmail.com",
-      "answerAtDate": "2024-08-21T02:39:03.478Z"
-    },
-    {
       "id": "33b1",
       "title": "hiaff",
       "author": "tuan@gmail.com",
       "date": "2024-08-21"
     },
     {
-      "id": "a086",
-      "title": "hiaaaaaff",
+      "id": "4ce5",
+      "title": "Basaa",
       "author": "tuan@gmail.com",
       "date": "2024-08-21",
-      "adminResponse": "ass",
-      "responseDate": "2024-08-21T03:05:49.157Z"
+      "adminResponse": "ff",
+      "responseDate": "2024-08-21T14:09:56.042Z",
+      "answerBy": "amazingtechAdmin@gmail.com",
+      "answerAtDate": "2024-08-21T14:09:57.909Z"
+    },
+    {
+      "id": "b131",
+      "title": "aa",
+      "author": "tuan@gmail.com",
+      "date": "2024-08-21"
     }
   ]
 }
